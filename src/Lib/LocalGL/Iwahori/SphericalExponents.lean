@@ -79,6 +79,8 @@ units. -/
 lemma exists_v_entry_eq_one_of_mem_intGL {k : GL (Fin N) F} (hk : k ∈ intGL (Fin N) 𝒪[F])
     (m : Fin N) :
     ∃ r : Fin N, v (k⁻¹ m r) = 1 ∧ v (k r m) = 1 := by
+  -- The diagonal entry `∑ r, k⁻¹ m r * k r m` of `k⁻¹ * k` is 1, so not all of its terms, products
+  -- of two integral elements, lie in the maximal ideal; one outside it has unit factors.
   by_contra h
   have h_lt : v (∑ r, k⁻¹ m r * k r m) < 1 := v.map_sum_lt' one_pos fun r _ ↦ by
     grind [mem_intGL, mul_lt_of_lt_of_le_one, v.mem_integer_iff]
